@@ -32,7 +32,7 @@ This document provides a quick reference for the API endpoints in the Counsellor
 ## Enquiry Management Endpoints
 
 ### Add Enquiry
-- **Endpoint**: `http://localhost:8082/auth/addEnquiry`
+- **Endpoint**: `http://localhost:8082/auth/add-enquiry`
 - **Method**: POST
 - **Payload**:
   ```json
@@ -44,19 +44,32 @@ This document provides a quick reference for the API endpoints in the Counsellor
     "status_id": 2
   }
   ```
-
+### Update Enquiry
+- **Endpoint**: `http://localhost:8082/auth/update-enquiry-status`
+- **Method**: POST
+- **Payload**:
+  ```json
+    {
+    "id":2,  
+    "student_name": "siva Kumar",
+    "phno": "9876543236",
+    "classmode_id": 1,
+    "course_id": 2,
+    "status_id": 2
+  }
+  ```
 ### Get Dropdowns Data
-- **Endpoint**: `http://localhost:8082/auth/getDropdownsData`
+- **Endpoint**: `http://localhost:8082/auth/get-dropdowns-data`
 - **Method**: GET
 - **Description**: Retrieves data for dropdown menus (e.g., class modes, courses, statuses).
 
 ### Get Dashboard Data
-- **Endpoint**: `http://localhost:8082/auth/getDashBoardData`
+- **Endpoint**: `http://localhost:8082/auth/get-dashboard-data`
 - **Method**: GET
 - **Description**: Retrieves dashboard statistics and data.
 
 ### Get Enquiries
-- **Endpoint**: `http://localhost:8082/auth/getEnquiries`
+- **Endpoint**: `http://localhost:8082/auth/get-enquiries`
 - **Method**: POST
 - **Payload**:
   ```json
