@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.infinity.constants.AIMappingConstants;
 import com.infinity.repository.CounsellorRepository;
 import com.infinity.service.CounsellorService;
 import com.infinity.util.JwtUtil;
@@ -39,7 +40,7 @@ public class CounsellorController {
     @Autowired
     private CounsellorService counsellorService;
 
-    @PostMapping("/login")
+    @PostMapping(value=AIMappingConstants.LOGIN)
     public Map<String,Object> loginCounsellor(@RequestBody Map<String,Object> payload) {
           Map<String, Object> response = new HashMap<>();
         String email = payload.get("email").toString();
@@ -54,7 +55,7 @@ public class CounsellorController {
             // 2️⃣ Get counsellor details
             Map<String, Object> counsellor =
                     counsellorRepo.findUserByEmail(email);
-                    if(counsellor == null && counsellor.isEmpty()) {
+                    if(counsellor == null) {
                         throw new Exception("Invalid email or password");
 
                     }
@@ -86,31 +87,31 @@ public class CounsellorController {
         return response;
     }
 
-    @PostMapping("/register")
+    @PostMapping(value=AIMappingConstants.REGISTER)
     public ResponseEntity<Object> registerCounsellor(@RequestBody Map<String,Object> payload) {
        Map<String, Object> result = counsellorService.registerCounsellor(payload);
        return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/addEnquiry")
+    @PostMapping(value = AIMappingConstants.ADD_ENQUIRY)
     public ResponseEntity<Object> addEnquiry(HttpServletRequest request, @RequestBody Map<String,Object> payload) {
         Map<String, Object> result = counsellorService.addEnquiry(request, payload);
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/getDropdownsData")
+    @GetMapping(value = AIMappingConstants.GET_DROPDOWNS)
     public ResponseEntity<Object> getDropdownsData() {
         Map<String, Object> result = counsellorService.getDropdownsData();
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/getDashBoardData")
+    @GetMapping(value = AIMappingConstants.DASHBOARD)
     public ResponseEntity<Object> getDashBoardData(HttpServletRequest request) {
         Map<String, Object> result = counsellorService.getDashBoardData(request);
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/getEnquiries")
+    @PostMapping(value = AIMappingConstants.ENQUIRIES)
     public ResponseEntity<Object> getEnquiries(HttpServletRequest request, @RequestBody Map<String,Object> filters) {
         Map<String, Object> result = counsellorService.getEnquiries(request, filters);
         return ResponseEntity.ok(result);
