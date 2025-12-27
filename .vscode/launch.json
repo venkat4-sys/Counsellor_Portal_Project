@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CounsellorApplication<counsellor>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.infinity.CounsellorApplication",
+            "projectName": "counsellor",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

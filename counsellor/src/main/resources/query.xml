@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- ========================= -->
+    <!-- COUNSELLOR QUERIES -->
+    <!-- ========================= -->
+    <util:properties id="counsellorQueries">
+        <prop key="getByEmail">
+            SELECT id, name, email, password, phnum
+            FROM counsellor
+            WHERE email = :email
+        </prop>
+
+        <prop key="insert">
+            INSERT INTO counsellor (name, email, password, phnum, created_at)
+            VALUES (:name, :email, :password, :phnum, NOW())
+        </prop>
+    </util:properties>
+
+    <!-- ========================= -->
+    <!-- ENQUIRY QUERIES -->
+    <!-- ========================= -->
+    <util:properties id="enquiryQueries">
+        <prop key="insert">
+            INSERT INTO enquiry (
+                student_name, phno, classmode_id,
+                course_id, status_id, counsellor_id_fk, created_at
+            )
+            VALUES (
+                :studentName, :phno, :classModeId,
+                :courseId, :statusId, :counsellorId, NOW()
+            )
+        </prop>
+
+        <prop key="getByCounsellor">
+            SELECT *
+            FROM enquiry
+            WHERE counsellor_id_fk = :counsellorId
+            ORDER BY created_at DESC
+        </prop>
+    </util:properties>
+
+    <!-- ========================= -->
+    <!-- MASTER DATA QUERIES -->
+    <!-- ========================= -->
+    <util:properties id="masterQueries">
+        <prop key="getCourses">
+            SELECT id, course_name FROM course
+        </prop>
+
+        <prop key="getClassModes">
+            SELECT id, mode_name FROM classmode
+        </prop>
+
+        <prop key="getStatus">
+            SELECT id, status_name FROM status
+        </prop>
+    </util:properties>
+
+</beans>
