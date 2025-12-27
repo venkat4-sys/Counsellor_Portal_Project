@@ -36,4 +36,8 @@ public class CounsellorService {
     public Map<String, Object> getEnquiries(HttpServletRequest request, Map<String, Object> filters) {
         return counsellorRepository.getEnquiries(request, filters);
     }
+
+    public Map<String, Object> updateEnquiryStatus(HttpServletRequest request, Map<String, Object> payload) {
+        return counsellorRepository.editEnquiry(request, payload);
+    }
 }

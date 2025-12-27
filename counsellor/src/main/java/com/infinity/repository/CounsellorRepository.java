@@ -223,4 +223,36 @@ public class CounsellorRepository {
 
         return response;
     }
+
+    public Map<String, Object> editEnquiry(HttpServletRequest request, Map<String, Object> payload) {
+        Map<String, Object> response = new HashMap<>();
+       String query = """
+                UPDATE ENQUIRY
+                SET student_name = :student_name,
+                    phno = :phno,
+                    classmode_id = :classmode_id,
+                    status_id = :status_id,
+                    course_id = :course_id
+                WHERE id = :id AND counsellor_id_fk = :counsellor_id_fk
+                """;
+
+        try {
+            int counsellorId = jwtUtil.extractCounsellorId(request.getHeader("Authorization").substring(7));
+            MapSqlParameterSource params = new MapSqlParameterSource();
+            params.addValue("student_name", payload.get("student_name"));
+            params.addValue("phno", payload.get("phno"));
+            params.addValue("classmode_id", payload.get("classmode_id"));
+            params.addValue("status_id", payload.get("status_id"));
+            params.addValue("course_id", payload.get("course_id"));
+            params.addValue("id", payload.get("id"));
+            params.addValue("counsellor_id_fk", counsellorId);
+           int j= namedParameterJdbcTemplate.update(query, params);
+           if(j>0){
+            response.put("message", "Enquiry updated successfully");
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
 }
